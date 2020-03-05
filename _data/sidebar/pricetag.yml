@@ -1,0 +1,19 @@
+logo: /assets/img/modules/redis.jpg
+name: 价签
+menus:
+  - id: setting
+    icon: alternate_email
+    name: 配置管理
+    menus:
+      - id: index
+        link: /pricetag/setting
+        name: 配置管理
+        mini: SM
+      - id: data-build
+        link: /pricetag/setting/data-build
+        name: 数据构建
+        mini: DB
+      - id: promo-hit
+        link: /pricetag/setting/promo-hit
+        name: 促销命中
+        mini: PH

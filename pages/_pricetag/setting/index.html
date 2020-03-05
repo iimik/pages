@@ -1,0 +1,240 @@
+---
+title: 配置管理
+subtitle: 配置管理
+description: 缓存不是业务，它的存在是提高业务，不要让模板代码成为你工作效率的中硌脚石。
+layout: post
+permalink: /pricetag/setting/index.html
+menus:
+- setting
+- index
+categories: []
+tags: []
+author: likly
+date: 2019-03-15 22:19:57 +800
+version: 1.0
+---
+{% raw %}
+<div class="col-md-12">
+    <form id="TypeValidation" class="form-horizontal" action="" method="">
+        <div class="card ">
+            <div class="card-header card-header-rose card-header-text">
+                <div class="card-text">
+                    <h4 class="card-title">配置查询</h4>
+                </div>
+            </div>
+            <div class="card-body ">
+                <!--作用域-->
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">作用域</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <div class="form-check form-check-radio form-check-inline"
+                                 :class="scope.enable ? '' : 'disabled'" v-for="scope in scopes">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           v-model="query.scope" :disabled="!scope.enable"
+                                           :value="scope.code">{{scope.name}}
+                                    <span class="circle"><span class="check"></span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--归属-->
+                <div class="row" v-show="query.scope != 1">
+                    <label class="col-sm-2 col-form-label">归属</label>
+                    <div class="col-sm-3" v-show="query.scope != 1">
+                        <div class="form-group">
+                            <div class="col-lg-5 col-md-6 col-sm-3">
+                                <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                        title="Single Select">
+                                    <option disabled selected>请选择商家</option>
+                                    <option :value="vendor.id" v-for="vendor in vendors">{{vendor.id}}|{{vendor.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" v-show="query.scope == 4">
+                        <div class="form-group">
+                            <div class="col-lg-5 col-md-6 col-sm-3">
+                                <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                        title="Single Select">
+                                    <option disabled selected>请选择门店</option>
+                                    <option :value="store.id" v-for="store in stores">
+                                        {{store.id}}|{{store.code}}|{{store.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--配置KEY-->
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">配置KEY</label>
+                    <div class="col-sm-3" >
+                        <div class="form-group">
+                            <div class="col-lg-5 col-md-6 col-sm-3">
+                                <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                        title="Single Select">
+                                    <option selected>全部</option>
+                                    <option :value="key.id" v-for="key in keys">{{key.key}}|{{key.desc}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer text-right">
+                <div class="mr-auto"></div>
+                <button type="submit" class="btn btn-rose">查询</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+            <div class="card-icon">
+                <i class="material-icons">menus</i>
+            </div>
+            <h4 class="card-title ">配置列表</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            商家
+                        </th>
+                        <th>
+                            门店组
+                        </th>
+                        <th>
+                            门店
+                        </th>
+                        <th>
+                            作用域
+                        </th>
+                        <th>配置KEY</th>
+                        <th>配置描述</th>
+                        <th>配置值</th>
+                        <th class="td-actions text-right">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="setting in settings">
+                        <td v-html="setting.id"></td>
+                        <td v-html="setting.vendor"></td>
+                        <td v-html="setting.group"></td>
+                        <td v-html="setting.store"></td>
+                        <td v-html="setting.scope"></td>
+                        <td v-html="setting.key"></td>
+                        <td v-html="setting.desc"></td>
+                        <td v-html="setting.value"></td>
+                        <td class="td-actions text-right">
+                            <a class="btn btn-link btn-info" href="data-build.html" v-show="setting.key == 'data-build'">详情</a>
+                            <a class="btn btn-link btn-info" href="detail.html" v-show="setting.key == 'others'">详情</a>
+                            <a class="btn btn-link btn-success">修改</a>
+                            <button class="btn btn-link btn-primary" v-show="setting.yn == 0">启用</button>
+                            <button class="btn btn-link btn-warning" v-show="setting.yn == 1">禁用</button>
+                            <button class="btn btn-link btn-danger">删除</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var content = new Vue({
+        el: '#content',
+        data: {
+            scopes: [
+                {code: 1, name: '系统', enable: true},
+                {code: 2, name: '商家', enable: true},
+                {code: 3, name: '门店组', enable: false},
+                {code: 4, name: '门店', enable: true}
+            ],
+            vendors: [
+                {id: 1, name: '北京物美'},
+                {id: 85, name: '天津物美'},
+            ],
+            stores: [
+                {id: 112, code: '1171', name: '中关村'}
+            ],
+            keys: [
+                {key: 'data-bind', desc: '数据构建'},
+                {key: 'others', desc: '其它'},
+            ],
+            query: {
+                scope: 1
+            },
+            settings: [
+                {
+                    id: 1,
+                    vendor: '-',
+                    group: '-',
+                    store: '-',
+                    scope: '系统',
+                    key: 'data-build',
+                    desc: '数据构建',
+                    value: {},
+                    yn: 0
+                },
+                {
+                    id: 2,
+                    vendor: '北京物美',
+                    group: '-',
+                    store: '-',
+                    scope: '商家',
+                    key: 'data-build',
+                    desc: '数据构建',
+                    value: {},
+                    yn: 1
+                },
+                {
+                    id: 3,
+                    vendor: '北京物美',
+                    group: '大卖场',
+                    store: '-',
+                    scope: '门店组',
+                    key: 'data-build',
+                    desc: '数据构建',
+                    value: {},
+                    yn: 0
+                },
+                {
+                    id: 4,
+                    vendor: '北京物美',
+                    group: '大卖场',
+                    store: '中关村',
+                    scope: '门店',
+                    key: 'data-build',
+                    desc: '数据构建',
+                    value: {},
+                    yn: 1
+                },
+                {
+                    id: 4,
+                    vendor: '北京物美',
+                    group: '大卖场',
+                    store: '中关村',
+                    scope: '门店',
+                    key: 'others',
+                    desc: '其它',
+                    value: {},
+                    yn: 1
+                },
+            ]
+        },
+    })
+</script>
+{% endraw %}

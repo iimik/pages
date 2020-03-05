@@ -1,0 +1,21 @@
+<div class="sidebar" data-background-color="black" data-color="green"
+     data-image="/assets/img/sidebar-1.jpg" id="sidebar">
+    <!--
+      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+      Tip 2: you can also add an image using data-image tag
+  -->
+    <div class="logo">
+        <a class="simple-text logo-mini" href="{{ site.url }}">
+            PP
+        </a>
+        <a class="simple-text logo-normal" href="{{ site.url }}">
+            Prep Pages
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        {% include sidebar/sidebar-user.html %}
+        {% include sidebar/sidebar-menu.html %}
+    </div>
+</div>
+{% include sidebar/sidebar.jekyll %}
