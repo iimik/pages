@@ -1,6 +1,33 @@
 logo: /assets/img/modules/redis.jpg
 name: 价签
 menus:
+  - id: change-orders
+    icon: dashboard
+    name: 变更单管理
+  - id: wares
+    icon: dashboard
+    name: 商品管理
+    menus:
+      - id: store-wares
+        name: 门店商品
+        mini: SW
+      - id: ware-time-line
+        name: 商品时间轴
+        mini: WTL
+  - id: templates
+    icon: dashboard
+    name: 模板管理
+    menus:
+      - id: index
+        name: 模板
+        mini: TPS
+      - id: types
+        name: 模板类型
+        mini: TPT
+        link: /pricetag/templates/types
+      - id: layouts
+        name: 模板布局
+        mini: TPL
   - id: setting
     icon: alternate_email
     name: 配置管理

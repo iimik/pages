@@ -1,0 +1,208 @@
+---
+title: 模板类型
+subtitle: 模板管理
+description:
+layout: post
+permalink: /pricetag/templates/types/index.html
+menus:
+- templates
+- types
+- index
+categories: []
+tags: []
+author: likly
+date: 2019-03-15 22:19:57 +800
+version: 1.0
+---
+{% raw %}
+<div class="col-md-12">
+    <form id="TypeValidation" class="form-horizontal" action="" method="">
+        <div class="card ">
+            <div class="card-header card-header-rose card-header-text">
+                <div class="card-text">
+                    <h4 class="card-title">模板类型查询</h4>
+                </div>
+            </div>
+            <div class="card-body ">
+                <!--作用域-->
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">作用域</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <div class="form-check form-check-radio form-check-inline"
+                                 :class="scope.enable ? '' : 'disabled'" v-for="scope in scopes">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           v-model="query.scope" :disabled="!scope.enable"
+                                           :value="scope.code">{{scope.name}}
+                                    <span class="circle"><span class="check"></span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--归属-->
+                <div class="row" v-show="query.scope != 1">
+                    <label class="col-sm-2 col-form-label">归属</label>
+                    <div class="col-sm-3" v-show="query.scope != 1">
+                        <div class="form-group">
+                            <div class="col-lg-5 col-md-6 col-sm-3">
+                                <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                        title="Single Select">
+                                    <option disabled selected>请选择商家</option>
+                                    <option :value="vendor.id" v-for="vendor in vendors">{{vendor.id}}|{{vendor.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" v-show="query.scope == 4">
+                        <div class="form-group">
+                            <div class="col-lg-5 col-md-6 col-sm-3">
+                                <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                        title="Single Select">
+                                    <option disabled selected>请选择门店</option>
+                                    <option :value="store.id" v-for="store in stores">
+                                        {{store.id}}|{{store.code}}|{{store.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--配置KEY-->
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">配置KEY</label>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <div class="col-lg-5 col-md-6 col-sm-3">
+                                <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                        title="Single Select">
+                                    <option selected>全部</option>
+                                    <option :value="key.id" v-for="key in keys">{{key.key}}|{{key.desc}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="card-footer text-right">
+                <div class="mr-auto"></div>
+                <button type="submit" class="btn btn-rose">查询</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+            <div class="card-icon">
+                <i class="material-icons">menus</i>
+            </div>
+            <h4 class="card-title ">模板类型列表</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            商家
+                        </th>
+                        <th>
+                            门店组
+                        </th>
+                        <th>
+                            门店
+                        </th>
+                        <th>
+                            作用域
+                        </th>
+                        <th>名称</th>
+                        <th>描述</th>
+                        <th>表达式</th>
+                        <th class="td-actions text-right">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="type in types">
+                        <td v-html="type.id"></td>
+                        <td v-html="type.vendor"></td>
+                        <td v-html="type.group"></td>
+                        <td v-html="type.store"></td>
+                        <td v-html="type.scope"></td>
+                        <td v-html="type.name"></td>
+                        <td v-html="type.desc"></td>
+                        <td v-html="type.expression"></td>
+                        <td class="td-actions text-right">
+                            <button class="btn btn-link btn-primary" v-show="type.yn == 0">启用</button>
+                            <button class="btn btn-link btn-warning" v-show="type.yn == 1">禁用</button>
+                            <button class="btn btn-link btn-danger">删除</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var content = new Vue({
+        el: '#content',
+        data: {
+            scopes: [
+                {code: 1, name: '系统', enable: true},
+                {code: 2, name: '商家', enable: true},
+                {code: 3, name: '门店组', enable: false},
+                {code: 4, name: '门店', enable: true}
+            ],
+            vendors: [
+                {id: 1, name: '北京物美'},
+                {id: 85, name: '天津物美'},
+            ],
+            stores: [
+                {id: 112, code: '1171', name: '中关村'}
+            ],
+            keys: [
+                {key: 'data-bind', desc: '数据构建'},
+                {key: 'others', desc: '其它'},
+            ],
+            query: {
+                scope: 1
+            },
+            types: [
+                {
+                    id: 1,
+                    vendor: '-',
+                    group: '-',
+                    store: '-',
+                    scope: '系统',
+                    name: '会员单品促（命中）',
+                    expression: '#if(holder.pro.mainType = 1 && holder.pro.limitUser) return true #end',
+                    desc: '按促销命中策略计算后，命中的促销类型为单品促销，且仅限会员。',
+                    value: {},
+                    yn: 1
+                },
+                {
+                    id: 2,
+                    vendor: '-',
+                    group: '-',
+                    store: '-',
+                    scope: '系统',
+                    name: '会员单品促（包含）',
+                    expression: '#foreach(pro in holder.pros) #if(pro.mainType = 1 && pro.limitUser) return true #end #end',
+                    desc: '商品参与的促销中包含单品会员促销',
+                    value: {},
+                    yn: 1
+                },
+
+            ]
+        },
+    })
+</script>
+{% endraw %}
