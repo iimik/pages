@@ -1,0 +1,15 @@
+logo: /assets/img/modules/redis.jpg
+name: 全链路监控
+menus:
+  - id: manager
+    icon: dashboard
+    name: 监控管理
+    menus:
+      - id: applications
+        link: /tracemonitor/manager/applications
+        name: 应用管理
+        mini: APM
+  - id: trace
+    icon: dashboard
+    link: /tracemonitor/trace
+    name: 监控链路

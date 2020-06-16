@@ -57,6 +57,8 @@ collections_dir: pages
 collections:
   pricetag:
     output: true
+  tracemonitor:
+    output: true
 #defaults:
 #  - scope:
 #      path: ""

@@ -1,0 +1,122 @@
+---
+title: 节点监控
+subtitle: 应用管理
+layout: post
+menus:
+- trace
+categories: []
+tags: []
+author: likly
+date: 2020-06-16 14:19:57 +800
+version: 1.0
+---
+
+{% raw %}
+<div class="col-md-12">
+    <form id="TypeValidation" class="form-horizontal" action="" method="">
+        <div class="card ">
+            <div class="card-header card-header-rose card-header-text">
+                <div class="card-text">
+                    <h4 class="card-title">节点查询</h4>
+                </div>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                        <div class="form-group">
+                            <label class="label-control">时间</label>
+                            <input type="text" class="form-control datetimepicker" value="21/06/2018"/>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <select class="selectpicker" data-style="btn btn-primary btn-round" title="应用">
+                            <option disabled selected>应用</option>
+                            <option value="2">商品</option>
+                            <option value="3">促销</option>
+                            <option value="4">价签</option>
+                            <option value="5">磅秤</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <select class="selectpicker" data-style="btn btn-primary btn-round" title="模块">
+                            <option disabled selected>模块</option>
+                            <option value="2">数据处理</option>
+                            <option value="3">电子价签</option>
+                        </select>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <div class="mr-auto"></div>
+                <button type="submit" class="btn btn-rose">查询</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="card">
+        <div class="card-header card-header-icon card-header-rose">
+            <div class="card-icon">
+                <i class="material-icons">menus</i>
+            </div>
+            <h4 class="card-title ">事件节点列表</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class=" text-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>商家</th>
+                        <th>门店</th>
+                        <th>商品</th>
+                        <th>事件</th>
+                        <th>应用</th>
+                        <th>模块</th>
+                        <th>节点</th>
+                        <th>时间</th>
+                        <th>创建时间</th>
+                        <th class="td-actions text-right">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="node in nodes">
+                        <td v-html="node.id"></td>
+                        <td v-html="node.vendor"></td>
+                        <td v-html="node.store"></td>
+                        <td v-html="node.name"></td>
+                        <td v-html="node.eventName"></td>
+                        <td v-html="node.appName"></td>
+                        <td >
+                            <span class="badge badge-info" v-html="node.moduleName"></span>
+                        </td>
+                        <td >
+                            <span class="badge badge-success" v-html="node.nodeName"></span>
+                        </td>
+                        <td v-html="node.nodeTime"></td>
+                        <td v-html="node.created"></td>
+                        <td class="td-actions text-right">
+                            <a href="node.html" class="btn btn-link btn-danger">详情</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endraw %}
+
+<script>
+    var content = new Vue({
+        el: '#content',
+        data: {
+            nodes: {{ site.data.tracemonitor.node-record | jsonify }}
+        },
+    })
+</script>
+
+
+
+

@@ -13,6 +13,8 @@
             modules: {{ site.data.modules | jsonify }},
             {% if module == 'pricetag' %}
             sidebar: {{ site.data.sidebar.pricetag | jsonify }}
+            {% elsif module == 'tracemonitor' %}
+            sidebar: {{ site.data.sidebar.tracemonitor | jsonify }}
             {% endif %}
         }
     })
