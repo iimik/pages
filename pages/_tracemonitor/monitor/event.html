@@ -1,10 +1,10 @@
 ---
-title: 应用管理
+title: 事件监控
 subtitle: 应用管理
 layout: post
 menus:
-- manager
-- applications
+- monitor
+- ware
 categories: []
 tags: []
 author: likly
@@ -18,7 +18,7 @@ version: 1.0
         <div class="card ">
             <div class="card-header card-header-rose card-header-text">
                 <div class="card-text">
-                    <h4 class="card-title">应用查询</h4>
+                    <h4 class="card-title">事件查询</h4>
                 </div>
             </div>
             <div class="card-body ">
@@ -36,7 +36,7 @@ version: 1.0
             <div class="card-icon">
                 <i class="material-icons">menus</i>
             </div>
-            <h4 class="card-title ">应用列表</h4>
+            <h4 class="card-title ">事件列表</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -44,33 +44,32 @@ version: 1.0
                     <thead class=" text-primary">
                     <tr>
                         <th>ID</th>
+                        <th>商家</th>
+                        <th>门店</th>
+                        <th>商品</th>
+                        <th>事件</th>
                         <th>应用</th>
-                        <th>编码</th>
-                        <th>模块数</th>
-                        <th>节点数</th>
+                        <th>模块</th>
+                        <th>时间</th>
                         <th>创建时间</th>
                         <th class="td-actions text-right">操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="application in applications">
-                        <td v-html="application.id"></td>
-                        <td>
-                            <span class="badge badge-info" v-html="application.appName"></span>
+                    <tr v-for="node in events">
+                        <td v-html="node.id"></td>
+                        <td v-html="node.vendor"></td>
+                        <td v-html="node.store"></td>
+                        <td v-html="node.name"></td>
+                        <td >
+                            <span class="badge badge-info" v-html="node.eventName"></span>
                         </td>
-                        <td>
-                            <span class="badge badge-info" style="text-transform: none" v-html="application.appCode"></span>
-                        </td>
-                        <td>
-                            <span class="badge badge-info" v-html="application.modules"></span>
-                        </td>
-                        <td>
-                            <span class="badge badge-info" v-html="application.nodes"></span>
-                        </td>
-
-                        <td v-html="application.created"></td>
+                        <td v-html="node.appName"></td>
+                        <td v-html="node.moduleName"></td>
+                        <td v-html="node.eventTime"></td>
+                        <td v-html="node.created"></td>
                         <td class="td-actions text-right">
-                            <a  href="/tracemonitor/application" class="btn btn-link btn-danger">详情</a>
+                            <a href="node.html" class="btn btn-link btn-danger">详情</a>
                         </td>
                     </tr>
                     </tbody>
@@ -85,9 +84,11 @@ version: 1.0
     var content = new Vue({
         el: '#content',
         data: {
-            applications: {{ site.data.tracemonitor.applications | jsonify }}
-    },
+            events: {{ site.data.tracemonitor.event-record | jsonify }}
+        },
     })
 </script>
+
+
 
 

@@ -3,7 +3,6 @@ title: 应用管理
 subtitle: 应用详情
 layout: post
 menus:
-- manager
 - applications
 categories: []
 tags: []
@@ -12,7 +11,12 @@ date: 2020-06-16 14:19:57 +800
 version: 1.0
 ---
 {% raw %}
-
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="applications.html">应用管理</a></li>
+        <li class="breadcrumb-item active" aria-current="page">价签</li>
+    </ol>
+</nav>
 
 <div class="card ">
     <div class="card-header card-header-rose card-header-text">
@@ -125,7 +129,7 @@ version: 1.0
                                     </td>
                                     <td v-html="event.created"></td>
                                     <td class="td-actions text-right">
-                                        <button class="btn btn-link btn-danger">详情</button>
+                                        <a href="/tracemonitor/trace" class="btn btn-link btn-danger">详情</a>
                                     </td>
                                 </tr>
                                 </tbody>

@@ -1,95 +1,127 @@
 ---
-title: 链路监控
-subtitle: 商品列表
+title: 链路详情
+subtitle: 链路详情
 layout: post
 menus:
-- trace
+- applications
 categories: []
 tags: []
 author: likly
 date: 2020-06-16 14:19:57 +800
 version: 1.0
 ---
-
 {% raw %}
-<div class="col-md-12">
-    <form id="TypeValidation" class="form-horizontal" action="" method="">
-        <div class="card ">
-            <div class="card-header card-header-rose card-header-text">
-                <div class="card-text">
-                    <h4 class="card-title">商品查询</h4>
+
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="applications.html">应用管理</a></li>
+        <li class="breadcrumb-item"><a href="application.html">价签</a></li>
+        <li class="breadcrumb-item active" aria-current="page">链路详情</li>
+    </ol>
+</nav>
+
+<div class="container-fluid">
+    <div class="header text-center">
+        <h3 class="title" v-html="event.name"></h3>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-timeline card-plain">
+                <div class="card-body">
+                    <ul class="timeline">
+                        <li :class=" index % 2 == 0 ? 'timeline-inverted' : ''" v-for="(node,index) in event.nodes">
+                            <div class="timeline-badge danger">
+                                <i class="material-icons" v-html="node.icon">card_travel</i>
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <span class="badge badge-pill badge-danger" v-html="node.app"></span>
+                                    <span class="badge badge-pill badge-danger" v-html="node.module"></span>
+                                    <span class="badge badge-pill badge-danger" v-html="node.name"></span>
+                                </div>
+                                <div class="timeline-body">
+                                    <p></p>
+                                </div>
+                                <h6>
+                                    <i class="ti-time"></i>
+                                    <span class="badge badge-pill badge-info" v-html="node.monitor.duration"></span>
+                                </h6>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            <div class="card-body ">
-
-            </div>
-            <div class="card-footer text-right">
-                <div class="mr-auto"></div>
-                <button type="submit" class="btn btn-rose">查询</button>
-            </div>
-        </div>
-    </form>
-
-    <div class="card">
-        <div class="card-header card-header-icon card-header-rose">
-            <div class="card-icon">
-                <i class="material-icons">menus</i>
-            </div>
-            <h4 class="card-title ">商品列表</h4>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead class=" text-primary">
-                    <tr>
-                        <th>ID</th>
-                        <th>商家</th>
-                        <th>门店</th>
-                        <th>商品</th>
-                        <th>今日变更事件</th>
-                        <th>今日变更节点</th>
-                        <th>总计变更事件</th>
-                        <th>总计变更节点</th>
-                        <th>版本</th>
-                        <th>创建时间</th>
-                        <th>修改时间</th>
-                        <th class="td-actions text-right">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="node in records">
-                        <td v-html="node.id"></td>
-                        <td v-html="node.vendor"></td>
-                        <td v-html="node.store"></td>
-                        <td v-html="node.name"></td>
-                        <td v-html="node.todayEventCount"></td>
-                        <td v-html="node.todayNodeCount"></td>
-                        <td v-html="node.totalEventCount"></td>
-                        <td v-html="node.totalNodeCount"></td>
-                        <td v-html="node.version"></td>
-                        <td v-html="node.created"></td>
-                        <td v-html="node.lastModified"></td>
-                        <td class="td-actions text-right">
-                            <a href="/tracemonitor/event" class="btn btn-link btn-danger">详情</a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>
 </div>
-{% endraw %}
+
 
 <script>
     var content = new Vue({
         el: '#content',
         data: {
-            records: {{ site.data.tracemonitor.trace-record | jsonify }}
-        },
+            event: {
+                name: '促销单生效',
+                nodes: [{
+                    app: '价签',
+                    module: '数据处理',
+                    name: '促销状态变更',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '价签',
+                    module: '数据处理',
+                    name: '数据处理',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '价签',
+                    module: '电子价签',
+                    name: '电子价签推送',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '磅秤',
+                    module: '数据处理',
+                    name: '促销状态变更',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '磅秤',
+                    module: '数据处理',
+                    name: '数据组装',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '磅秤',
+                    module: '数据下发',
+                    name: '前置机推送',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '磅秤',
+                    module: '数据下发',
+                    name: '云推送',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }]
+            }
+        }
     })
 </script>
 
-
-
-
+{% endraw %}

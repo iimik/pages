@@ -1,15 +1,27 @@
 logo: /assets/img/modules/redis.jpg
 name: 全链路监控
 menus:
-  - id: manager
+  - id: applications
+    link: /tracemonitor/applications
     icon: dashboard
-    name: 监控管理
+    name: 应用管理
+  - id: monitor
+    icon: dashboard
+    name: 链路监控
     menus:
-      - id: applications
-        link: /tracemonitor/manager/applications
-        name: 应用管理
-        mini: APM
-  - id: trace
-    icon: dashboard
-    link: /tracemonitor/trace
-    name: 监控链路
+      - id: system
+        name: 系统链路
+        link: /tracemonitor/monitor/ware
+        mini: ST
+      - id: vendor
+        name: 商家链路
+        link: /tracemonitor/monitor/ware
+        mini: VT
+      - id: system
+        name: 门店链路
+        link: /tracemonitor/monitor/ware
+        mini: ST
+      - id: ware
+        name: 商品链路
+        link: /tracemonitor/monitor/ware
+        mini: WT
