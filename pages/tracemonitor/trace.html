@@ -1,0 +1,127 @@
+---
+title: 链路详情
+subtitle: 链路详情
+layout: post
+menus:
+- applications
+categories: []
+tags: []
+author: likly
+date: 2020-06-16 14:19:57 +800
+version: 1.0
+---
+{% raw %}
+
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="applications/index.html">应用管理</a></li>
+        <li class="breadcrumb-item"><a href="applications/modules.html">价签</a></li>
+        <li class="breadcrumb-item active" aria-current="page">链路详情</li>
+    </ol>
+</nav>
+
+<div class="container-fluid">
+    <div class="header text-center">
+        <h3 class="title" v-html="event.name"></h3>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-timeline card-plain">
+                <div class="card-body">
+                    <ul class="timeline">
+                        <li :class=" index % 2 == 0 ? 'timeline-inverted' : ''" v-for="(node,index) in event.nodes">
+                            <div class="timeline-badge danger">
+                                <i class="material-icons" v-html="node.icon">card_travel</i>
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <span class="badge badge-pill badge-danger" v-html="node.app"></span>
+                                    <span class="badge badge-pill badge-danger" v-html="node.module"></span>
+                                    <span class="badge badge-pill badge-danger" v-html="node.name"></span>
+                                </div>
+                                <div class="timeline-body">
+                                    <p></p>
+                                </div>
+                                <h6>
+                                    <i class="ti-time"></i>
+                                    <span class="badge badge-pill badge-info" v-html="node.monitor.duration"></span>
+                                </h6>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var content = new Vue({
+        el: '#content',
+        data: {
+            event: {
+                name: '促销单生效',
+                nodes: [{
+                    app: '价签',
+                    module: '数据处理',
+                    name: '促销状态变更',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '价签',
+                    module: '数据处理',
+                    name: '数据处理',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '价签',
+                    module: '电子价签',
+                    name: '电子价签推送',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '磅秤',
+                    module: '数据处理',
+                    name: '促销状态变更',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '磅秤',
+                    module: '数据处理',
+                    name: '数据组装',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '磅秤',
+                    module: '数据下发',
+                    name: '前置机推送',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }, {
+                    app: '磅秤',
+                    module: '数据下发',
+                    name: '云推送',
+                    icon: 'extension',
+                    monitor: {
+                        duration: '500ms'
+                    }
+                }]
+            }
+        }
+    })
+</script>
+
+{% endraw %}
