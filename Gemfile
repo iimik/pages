@@ -23,7 +23,6 @@ group :jekyll_plugins do
   gem 'jekyll-gist'
   gem 'jekyll-coffeescript'
   # gem 'jekyll-default-layout'
-  gem 'jekyll-gist'
   gem 'jekyll-github-metadata'
   gem 'jekyll-optional-front-matter'
   gem 'jekyll-paginate'
