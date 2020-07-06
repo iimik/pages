@@ -1,6 +1,6 @@
 ---
 title: 应用管理
-subtitle: 应用管理
+subtitle: 全链路监控
 layout: post
 menus:
 - applications
@@ -29,6 +29,17 @@ version: 1.0
             </div>
             <div class="card-body ">
 
+                <form class="form-horizontal">
+                    <div class="row">
+                        <label class="col-md-2 col-form-label">名称或编码</label>
+                        <div class="col-md-10">
+                            <div class="form-group has-default bmd-form-group">
+                                <input type="email" class="form-control" placeholder="请输入应用名称或编码">
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
             </div>
             <div class="card-footer text-right">
                 <div class="mr-auto"></div>
@@ -42,9 +53,14 @@ version: 1.0
             <div class="card-icon">
                 <i class="material-icons">menus</i>
             </div>
-            <h4 class="card-title ">应用列表</h4>
+            <div class="row text-right card-title ">
+                <h4>应用列表</h4>
+                <div class="mr-auto"></div>
+                <a href="application.html" type="submit" class="btn btn-rose">新建应用</a>
+            </div>
         </div>
         <div class="card-body">
+
             <div class="table-responsive">
                 <table class="table">
                     <thead class=" text-primary">
@@ -65,7 +81,8 @@ version: 1.0
                             <span class="badge badge-info" v-html="application.appName"></span>
                         </td>
                         <td>
-                            <span class="badge badge-info" style="text-transform: none" v-html="application.appCode"></span>
+                            <span class="badge badge-info" style="text-transform: none"
+                                  v-html="application.appCode"></span>
                         </td>
                         <td>
                             <span class="badge badge-info" v-html="application.modules"></span>
@@ -76,7 +93,9 @@ version: 1.0
 
                         <td v-html="application.created"></td>
                         <td class="td-actions text-right">
-                            <a  href="/tracemonitor/application" class="btn btn-link btn-danger">详情</a>
+                            <a href="application.html" class="btn btn-link btn-info">编辑</a>
+                            <a href="modules.html" class="btn btn-link btn-success">模块</a>
+                            <button class="btn btn-link btn-danger">禁用</button>
                         </td>
                     </tr>
                     </tbody>
@@ -91,8 +110,8 @@ version: 1.0
     var content = new Vue({
         el: '#content',
         data: {
-            applications: {{ site.data.tracemonitor.applications | jsonify }}
-    },
+            applications: {{site.data.tracemonitor.applications | jsonify}}
+        },
     })
 </script>
 
