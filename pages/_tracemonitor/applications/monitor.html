@@ -1,0 +1,461 @@
+---
+title: 监控详情
+subtitle: 应用管理
+layout: post
+menus:
+- applications
+categories: []
+tags: []
+author: likly
+date: 2020-06-16 14:19:57 +800
+version: 1.0
+---
+{% raw %}
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">应用管理</a></li>
+        <li class="breadcrumb-item"><a href="modules.html">模块管理</a></li>
+        <li class="breadcrumb-item"><a href="monitors.html">监控管理</a></li>
+        <li class="breadcrumb-item active" aria-current="page">监控详情</li>
+    </ol>
+</nav>
+
+<div id="starter">
+
+
+    <div class="col-12 mr-auto ml-auto">
+        <!--      Wizard container        -->
+        <div class="wizard-container">
+            <div class="card card-wizard active" data-color="rose" id="wizardProfile">
+                <form action="" method="" novalidate="novalidate">
+                    <!--        You can switch " data-color="primary" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
+                    <div class="card-header  text-center">
+                        <h3 class="card-title">
+                            监控详情
+                        </h3>
+                    </div>
+                    <div class="wizard-navigation">
+                        <ul class="starter nav nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#project" role="tab">
+                                    监控节点
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#metadata" role="tab">
+                                    监控条件
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#dependencies" role="tab">
+                                    监控规则
+                                </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="project">
+
+                                <form method="get" action="/" class="form-horizontal">
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">名称</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group bmd-form-group">
+                                                <input aria-required="true" class="form-control" name="required"
+                                                       required="true" type="text"
+                                                       v-model="monitor.name">
+                                                <span class="bmd-help">A block of help text that breaks onto a new line.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">描述</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group bmd-form-group">
+                                                <textarea rows="5" aria-required="true" class="form-control" name="required"
+                                                       required="true" type="text"
+                                                          v-model="monitor.desc"></textarea>
+                                                <span class="bmd-help"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">源节点</label>
+                                        <div class="col-lg-3 col-md-3 col-sm-3">
+                                            <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                                    title="请选择应用">
+                                                <option :value="application.name" v-for="application in applications"
+                                                        v-html="application.name"></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3">
+                                            <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                                    title="请选择模块">
+                                                <option :value="module.name" v-for="module in modules"
+                                                        v-html="module.name"></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3">
+                                            <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                                    title="请选择节点">
+                                                <option :value="node.name" v-for="node in nodes"
+                                                        v-html="node.name"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">目标节点</label>
+                                        <div class="col-lg-3 col-md-3 col-sm-3">
+                                            <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                                    title="请选择应用">
+                                                <option :value="application.name" v-for="application in applications"
+                                                        v-html="application.name"></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3">
+                                            <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                                    title="请选择模块">
+                                                <option :value="module.name" v-for="module in modules"
+                                                        v-html="module.name"></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-3">
+                                            <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                                    title="请选择节点">
+                                                <option :value="node.name" v-for="node in nodes"
+                                                        v-html="node.name"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+                            <div class="tab-pane" id="metadata">
+
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class=" text-primary">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>名称</th>
+                                                <th>创建时间</th>
+                                                <th class="td-actions text-right">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="(condition,index) in monitor.conditions">
+                                                <td v-html="index + 1"></td>
+                                                <td>
+                                                    <span class="badge badge-info" v-html="condition.name"></span>
+                                                </td>
+                                                <td v-html="condition.created"></td>
+                                                <td class="td-actions text-right">
+                                                    <button class="btn btn-link btn-info">上移</button>
+                                                    <button class="btn btn-link btn-info">下移</button>
+                                                    <button class="btn btn-link btn-info">编辑</button>
+                                                    <button class="btn btn-link btn-warning">禁用</button>
+                                                    <button class="btn btn-link btn-danger">删除</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 col-form-label label-checkbox">条件类型</label>
+                                    <div class="col-sm-10 checkbox-radios">
+                                        <div class="form-check form-check-radio form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" id="java14"
+                                                       name="conditionType" type="radio"
+                                                       v-model="monitor.conditionType" value="any"> 满足其中之一
+                                                <span class="circle"><span class="check"></span></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-radio form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" id="java11"
+                                                       name="conditionType" type="radio"
+                                                       v-model="monitor.conditionType" value="all"> 全部满足
+                                                <span class="circle"><span class="check"></span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row text-right">
+                                    <div class="mr-auto"></div>
+                                    <button class="btn btn-rose">新增条件</button>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane" id="dependencies">
+
+                                <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class=" text-primary">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>名称</th>
+                                                <th>创建时间</th>
+                                                <th class="td-actions text-right">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr v-for="(rule,index) in monitor.rules">
+                                                <td v-html="index + 1"></td>
+                                                <td>
+                                                    <span class="badge badge-info" v-html="rule.name"></span>
+                                                </td>
+                                                <td v-html="rule.created"></td>
+                                                <td class="td-actions text-right">
+                                                    <button class="btn btn-link btn-info">上移</button>
+                                                    <button class="btn btn-link btn-info">下移</button>
+                                                    <button class="btn btn-link btn-info">编辑</button>
+                                                    <button class="btn btn-link btn-warning">禁用</button>
+                                                    <button class="btn btn-link btn-danger">删除</button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <label class="col-sm-2 col-form-label label-checkbox">规则类型</label>
+                                    <div class="col-sm-10 checkbox-radios">
+                                        <div class="form-check form-check-radio form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" id="ruleTypeAll"
+                                                       name="inlineRadioOptions" type="radio"
+                                                       v-model="monitor.ruleType" value="any"> 满足其中之一
+                                                <span class="circle"><span class="check"></span></span>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-radio form-check-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" id="ruleTypeAny"
+                                                       name="inlineRadioOptions" type="radio"
+                                                       v-model="monitor.ruleType" value="all"> 全部满足
+                                                <span class="circle"><span class="check"></span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row text-right">
+                                    <div class="mr-auto"></div>
+                                    <button class="btn btn-rose">新增规则</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="mr-auto">
+                            <input class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous"
+                                   type="button" value="上一步">
+                        </div>
+                        <div class="ml-auto">
+                            <input class="btn btn-next btn-fill btn-rose btn-wd" name="next" type="button" value="下一步">
+                            <input class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" style="display: none;"
+                                   type="button" value="完成">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- wizard container -->
+    </div>
+
+
+</div>
+
+{% endraw %}
+
+<script>
+    //格式化代码函数,已经用原生方式写好了不需要改动,直接引用就好
+    String.prototype.removeLineEnd = function () {
+        return this.replace(/(<.+?\s+?)(?:\n\s*?(.+?=".*?"))/g, '$1 $2')
+    }
+    var starter = new Vue({
+            el: '#starter',
+            data: {
+                monitor: {
+                    name: '电子价签推送-更新回调监控',
+                    desc: '监控电子价签是否刷新成功:\n1. 5分钟是否收到了更新回调；\n2. 更新回调是否成功；',
+                    conditionType: 'all',
+                    conditions: [
+                        {
+                            name: '推送电子价签成功'
+                        }
+                    ],
+                    ruleType: 'all',
+                    rules: [
+                        {name: '5分钟收到电子价签更新回调'},
+                        {name: '电子价签更新成功'},
+                    ]
+                },
+                applications: [
+
+                    {name: '商品'},
+                    {name: '促销'},
+                    {name: '价签'},
+                    {name: '磅秤'},
+                ],
+                modules: [
+                    {name: '商品服务'},
+                    {name: '促销服务'},
+                    {name: '价签服务'},
+                    {name: '磅秤服务'},
+                ],
+                nodes: [
+                    {name: '调价单生效'},
+                    {name: '促销状态变更'},
+                    {name: '接收调价生效'},
+                    {name: '接收促销状态变更'},
+                    {name: '推送电子价签'},
+                    {name: '电子价签更新回调'},
+                ]
+
+
+            },
+            watch: {},
+            mounted: function () {
+                let _this = this;
+
+// Wizard Initialization
+                $('.card-wizard').bootstrapWizard({
+                    'tabClass': 'starter nav nav-pills',
+                    'nextSelector': '.btn-next',
+                    'previousSelector': '.btn-previous',
+
+                    onNext: function (tab, navigation, index) {
+                        // var $valid = $('.card-wizard form').valid();
+                        // if (!$valid) {
+                        //     $validator.focusInvalid();
+                        //     return false;
+                        // }
+                    },
+
+                    onInit: function (tab, navigation, index) {
+                        //check number of tabs and fill the entire row
+                        var $total = navigation.find('li').length;
+                        var $wizard = navigation.closest('.card-wizard');
+
+                        $first_li = navigation.find('li:first-child a').html();
+                        $moving_div = $('<div class="moving-tab">' + $first_li + '</div>');
+                        $('.card-wizard .wizard-navigation').append($moving_div);
+
+                        _this.refreshAnimation($wizard, index);
+
+                        $('.moving-tab').css('transition', 'transform 0s');
+                    },
+
+                    onTabClick: function (tab, navigation, index) {
+                        var $valid = $('.card-wizard form').valid();
+
+                        if (!$valid) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    },
+
+                    onTabShow: function (tab, navigation, index) {
+                        var $total = navigation.find('li').length;
+                        var $current = index + 1;
+
+                        var $wizard = navigation.closest('.card-wizard');
+
+                        // If it's the last tab then hide the last button and show the finish instead
+                        if ($current >= $total) {
+                            $($wizard).find('.btn-next').hide();
+                            $($wizard).find('.btn-finish').show();
+                        } else {
+                            $($wizard).find('.btn-next').show();
+                            $($wizard).find('.btn-finish').hide();
+                        }
+
+                        button_text = navigation.find('li:nth-child(' + $current + ') a').html();
+
+                        setTimeout(function () {
+                            $('.moving-tab').text(button_text);
+                        }, 150);
+
+                        var checkbox = $('.footer-checkbox');
+
+                        if (!index == 0) {
+                            $(checkbox).css({
+                                'opacity': '0',
+                                'visibility': 'hidden',
+                                'position': 'absolute'
+                            });
+                        } else {
+                            $(checkbox).css({
+                                'opacity': '1',
+                                'visibility': 'visible'
+                            });
+                        }
+
+                        _this.refreshAnimation($wizard, index);
+                    },
+
+                });
+                // alert(_this.root.pom);
+            },
+            methods: {
+                refreshAnimation: function ($wizard, index) {
+                    $total = $wizard.find('.nav li').length;
+                    $li_width = 100 / $total;
+
+                    total_steps = $wizard.find('.nav li').length;
+                    move_distance = $wizard.width() / total_steps;
+                    index_temp = index;
+                    vertical_level = 0;
+
+                    mobile_device = $(document).width() < 600 && $total > 3;
+
+                    if (mobile_device) {
+                        move_distance = $wizard.width() / 2;
+                        index_temp = index % 2;
+                        $li_width = 50;
+                    }
+
+                    $wizard.find('.nav li').css('width', $li_width + '%');
+
+                    step_width = move_distance;
+                    move_distance = move_distance * index_temp;
+
+                    $current = index + 1;
+
+                    if ($current == 1 || (mobile_device == true && (index % 2 == 0))) {
+                        move_distance -= 8;
+                    } else if ($current == total_steps || (mobile_device == true && (index % 2 == 1))) {
+                        move_distance += 8;
+                    }
+
+                    if (mobile_device) {
+                        vertical_level = parseInt(index / 2);
+                        vertical_level = vertical_level * 38;
+                    }
+
+                    $wizard.find('.moving-tab').css('width', step_width);
+                    $('.moving-tab').css({
+                        'transform': 'translate3d(' + move_distance + 'px, ' + vertical_level + 'px, 0)',
+                        'transition': 'all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1)'
+
+                    });
+                },
+
+            }
+        })
+    ;
+</script>

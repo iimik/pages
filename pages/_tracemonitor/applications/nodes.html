@@ -22,11 +22,36 @@ version: 1.0
 <div class="card ">
     <div class="card-header card-header-rose card-header-text">
         <div class="card-text">
-            <h4 class="card-title">价签</h4>
+            <h4 class="card-title">模块信息</h4>
         </div>
     </div>
     <div class="card-body ">
+        <div class="row">
+            <div class="col-2 text-right">
+                应用名称:
+            </div>
+            <div class="col-4 text-left" v-html="module.applicationName">
 
+            </div>
+            <div class="col-2 text-right">
+                应用编码:
+            </div>
+            <div class="col-4 text-left" v-html="module.applicationCode">
+
+            </div>
+            <div class="col-2 text-right">
+                模块名称:
+            </div>
+            <div class="col-4 text-left" v-html="module.name">
+
+            </div>
+            <div class="col-2 text-right">
+                模块编码:
+            </div>
+            <div class="col-4 text-left" v-html="module.code">
+
+            </div>
+        </div>
     </div>
     <div class="card-footer text-right">
         <div class="mr-auto"></div>
@@ -35,67 +60,55 @@ version: 1.0
 </div>
 
 <div class="card">
-    <div class="card-header card-header-tabs card-header-info">
-        <div class="nav-tabs-navigation">
-            <div class="nav-tabs-wrapper"><span class="nav-tabs-title"></span>
-                <ul data-tabs="tabs" class="nav nav-tabs">
-
-                    <li class="nav-item">
-                        <a data-toggle="tab" href="#nodes" class="nav-link active show ">
-                            <i class="material-icons">code</i> 节点
-                            <div class="ripple-container"></div>
-                        </a>
-                    </li>
-
-                </ul>
-            </div>
+    <div class="card-header card-header-icon card-header-rose">
+        <div class="card-icon">
+            <i class="material-icons">menus</i>
+        </div>
+        <div class="row text-right card-title ">
+            <h4>节点列表</h4>
+            <div class="mr-auto"></div>
+            <a href="application.html" type="submit" class="btn btn-rose">新建节点</a>
         </div>
     </div>
     <div class="card-body" style="min-height: 40%;">
-        <div class="tab-content">
-
-            <div id="nodes" class="tab-pane active show">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead class=" text-primary">
-                        <tr>
-                            <th>ID</th>
-                            <th>应用</th>
-                            <th>模块</th>
-                            <th>名称</th>
-                            <th>编码</th>
-                            <th>创建时间</th>
-                            <th class="td-actions text-right">操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="node in nodes">
-                            <td v-html="node.id"></td>
-                            <td>
-                                <span class="badge badge-info" v-html="node.app"></span>
-                            </td>
-                            <td>
-                                <span class="badge badge-info" v-html="node.module"></span>
-                            </td>
-                            <td>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class=" text-primary">
+                <tr>
+                    <th>ID</th>
+                    <th>应用</th>
+                    <th>模块</th>
+                    <th>名称</th>
+                    <th>编码</th>
+                    <th>创建时间</th>
+                    <th class="td-actions text-right">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="node in nodes">
+                    <td v-html="node.id"></td>
+                    <td>
+                        <span class="badge badge-info" v-html="node.app"></span>
+                    </td>
+                    <td>
+                        <span class="badge badge-info" v-html="node.module"></span>
+                    </td>
+                    <td>
                                         <span class="badge badge-info" style="text-transform: none"
                                               v-html="node.name"></span>
-                            </td>
-                            <td>
+                    </td>
+                    <td>
                                         <span class="badge badge-info" style="text-transform: none"
                                               v-html="node.code"></span>
-                            </td>
-                            <td v-html="node.created"></td>
-                            <td class="td-actions text-right">
-                                <a href="monitors.html" class="btn btn-link btn-warning">监控</a>
-                                <a href="../monitor/node.html" class="btn btn-link btn-info">节点记录</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
+                    </td>
+                    <td v-html="node.created"></td>
+                    <td class="td-actions text-right">
+                        <a href="monitors.html" class="btn btn-link btn-warning">监控</a>
+                        <a href="../monitor/node.html" class="btn btn-link btn-info">节点记录</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -105,51 +118,12 @@ version: 1.0
     var content = new Vue({
         el: '#content',
         data: {
-            modules: [{
-                name: "数据处理",
-                code: "data-handle",
-                desc: ""
-            }, {
-                name: "电子价签",
-                code: "esl",
-                desc: ""
-            }],
-            events: [{
-                module: "调价单",
-                name: "调价单创建",
-                code: "change-order-create",
-                desc: ""
-            }, {
-                module: "调价单",
-                name: "调价单审核通过",
-                code: "change-order-audit-pass",
-                desc: ""
-            }, {
-                module: "调价单",
-                name: "调价单生效",
-                code: "change-order-effective",
-                desc: ""
-            }, {
-                module: "促销单",
-                name: "促销单创建",
-                code: "promotion-order-create",
-                desc: ""
-            }, {
-                module: "促销单",
-                name: "促销单创建",
-                code: "promotion-order-modify",
-                desc: ""
-            }, {
-                module: "促销单",
-                name: "促销单开始",
-                code: "promotion-order-start",
-                desc: ""
-            }, {
-                module: "促销单",
-                name: "促销单结束",
-                code: "promotion-order-end",
-                desc: ""
-            }],
+            module: {
+                applicationCode: 'price-tag',
+                applicationName: '价签',
+                code: 'price-tag',
+                name: '价签服务'
+            },
             nodes: [
                 {
                     app: '价签',
@@ -169,29 +143,7 @@ version: 1.0
                     code: 'esl_update_callback',
                     name: '电子价签更新回调'
                 }
-            ],
-            monitors: [{
-                app: '价签',
-                module: '数据处理',
-                name: '促销状态变更，价签数据处理',
-                event: '促销状态变更',
-                node: '数据处理',
-                rule: '500ms'
-            }, {
-                app: '价签',
-                module: '电子价签',
-                name: '促销状态变更，电子价签更新推送',
-                event: '促销状态变更',
-                node: '电子价签更新推送',
-                rule: '1min'
-            }, {
-                app: '价签',
-                module: '电子价签',
-                name: '促销状态变更，电子价签更新回调',
-                event: '促销状态变更',
-                node: '电子价签更新回调',
-                rule: '5min'
-            }]
+            ]
         },
     })
 </script>
